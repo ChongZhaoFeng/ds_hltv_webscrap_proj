@@ -3,12 +3,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.common.exceptions import NoSuchElementException
 import time
 
 
-'''landing the page'''
 
+'''landing the page'''
 driver = webdriver.Chrome()
 driver.get("https://hltv.org")
 driver.maximize_window()        
@@ -16,7 +16,6 @@ driver.maximize_window()
 
 
 '''allow cookies'''
-
 try:
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, "Allow all cookies")))
     element.click()
@@ -27,9 +26,7 @@ except:
     
 
 
-
 ''' search for desire team '''
-
 try:
     
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@class="navsearchinput tt-input"]')))
@@ -42,7 +39,6 @@ except:
     
     
 ''' press the first team on search result '''
-
 try:
     
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, "Astralis")))
@@ -54,7 +50,6 @@ except:
 
 
 ''' press all matches '''
-
 try:
     
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@data-content-id='matchesBox']")))
@@ -65,3 +60,27 @@ try:
     
 except:
     print ("all matches result fail")   
+
+
+
+''' loop through all matches '''
+i = 1
+while i < 10:
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(//div[@class="result-con "])[{0}]'.format(str(i)))))
+    element.click()
+    driver.back()
+    i = i+1
+  
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+    
