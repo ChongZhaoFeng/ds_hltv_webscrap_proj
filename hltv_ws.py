@@ -87,22 +87,31 @@ B5_adr = []
 ''' loop through all matches and extract data'''
 
 i = 1
-while i <= 5:
+while i <= 10:
     
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[7]/div[1]/div[{0}]/div[2]/a/div/table/tbody/tr/td[1]/div/div)'.format(str(i)))))
-    team_A.append(element.text)
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[6]/div[1]/div[{0}]/div[2]/a/div/table/tbody/tr/td[2])'.format(str(i)))))
+    score.append(element.text)
 
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[7]/div[1]/div[{0}]/div[2]/a/div/table/tbody/tr/td[3]/div/div)'.format(str(i)))))
-    team_B.append(element.text)    
-    
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(//div[@class="result-con "])[{0}]'.format(str(i)))))
     element.click()
+    
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@class="teamName"][1]')))
+    team_A.append(element.text)
+    
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(//div[@class="teamName"])[2]')))
+    team_B.append(element.text)
+    
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[1]/div[2]/div[3]/a)')))
+    event.append(element.text)
+    
+    
     driver.back()
     i = i+1
   
+    
 
 ''' Creating dataframe '''
-df = pd.DataFrame({"Team A":team_A, "Team B":team_B})
+df = pd.DataFrame({"Team A":team_A, "Score":score, "Team B":team_B, "Event":event})
 print (df)
 
 '''
@@ -111,7 +120,5 @@ df
 '''
 
 
-
-    
     
     
