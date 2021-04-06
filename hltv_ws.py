@@ -60,6 +60,7 @@ try:
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.LINK_TEXT, "See all results for Astralis")))
     element.click()
     
+    
 except:
     print ("all matches result fail")   
 
@@ -71,53 +72,46 @@ team_B = []
 score = []
 maps = []
 event = []
-A1_adr = []
-A2_adr = []
-A3_adr = []
-A4_adr = []
-A5_adr = []
-B1_adr = []
-B2_adr = []
-B3_adr = []
-B4_adr = []
-B5_adr = []
+
 
 
 
 ''' loop through all matches and extract data'''
 
-i = 1
-while i <= 10:
-    
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[6]/div[1]/div[{0}]/div[2]/a/div/table/tbody/tr/td[2])'.format(str(i)))))
-    score.append(element.text)
 
-    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(//div[@class="result-con "])[{0}]'.format(str(i)))))
+i = 1
+while i <= 20:
+
+    
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[4]/div[1]/div[{0}]/div[2]/a/div/table/tbody/tr/td[2])'.format(str(i)))))
+    score.append(element.text)
+    
+    element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[4]/div[1]/div[{0}]/div[2]/a/div)'.format(str(i)))))
     element.click()
     
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//div[@class="teamName"][1]')))
     team_A.append(element.text)
-    
+        
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(//div[@class="teamName"])[2]')))
     team_B.append(element.text)
-    
+        
     element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '(/html/body/div[2]/div/div[2]/div[1]/div[2]/div[1]/div[2]/div[3]/a)')))
     event.append(element.text)
     
     
     driver.back()
-    i = i+1
-  
+    i+=1
+    
+
+
+
     
 
 ''' Creating dataframe '''
 df = pd.DataFrame({"Team A":team_A, "Score":score, "Team B":team_B, "Event":event})
 print (df)
 
-'''
-df = pd.DataFrame({"Team A":team_A,"Team B":team_B, "Score":score, "Map":maps, "Event":event, "A1_adr":A1_adr, "A2_adr":A2_adr,"A3_adr":A3_adr,"A4_adr":A4_adr, "A5_adr":A5_adr, "B1_adr":B1_adr, "B2_adr":B2_adr, "B3_adr":B3_adr, "B4_adr":B4_adr, "B5_adr":B5_adr })
-df
-'''
+
 
 
     
